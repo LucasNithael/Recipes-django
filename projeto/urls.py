@@ -16,23 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-'''
-from django.http import HttpResponse
-def _home(request):
-    return HttpResponse("Home 1")
-
-def _sobre(request):
-    return HttpResponse("Sobre 1")
-
-def _contato(request):
-    return HttpResponse("Contato 1")
-'''
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('recipes.urls')),
 ]
 
-
-
-
-#Testanto o commit
