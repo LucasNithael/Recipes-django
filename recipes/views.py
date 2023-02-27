@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_list_or_404, get_object_or_404
-from utils.recipes.gerador import make_recipe
-from .models import Recipe, Category
+from django.shortcuts import get_list_or_404, get_object_or_404, render
+'''from utils.recipes.gerador import make_recipe'''
+from .models import Recipe
+
 
 def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
@@ -17,8 +18,9 @@ def category(request, category_id):
     )
     return render(request, 'recipes/pages/category.html', context={
         'recipes': recipes,
-        'title' : f"{recipes[0].category.name} |" + " Category",
+        'title': f"{recipes[0].category.name} |" + " Category",
     })
+
 
 def recipe(request, id):
     recipe = get_object_or_404(Recipe, pk=id, is_published=True)
