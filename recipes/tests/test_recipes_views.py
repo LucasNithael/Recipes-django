@@ -1,5 +1,5 @@
 from django.urls import resolve, reverse
-
+from unittest.mock import patch
 from recipes import views
 
 from .test_recipes_base import RecipeTestBase
@@ -149,7 +149,7 @@ class RecipeViewsTest(RecipeTestBase):
         url = reverse('recipes:search') + '?search=<Teste>'
         response = self.client.get(url)
         self.assertIn(
-            'Search For &lt;Teste&gt;',
+            'Search for &quot;&lt;Teste&gt;&quot;',
             response.content.decode('utf-8')
         )
 
@@ -177,3 +177,21 @@ class RecipeViewsTest(RecipeTestBase):
 
         self.assertIn(recipe1, response_both.context['recipes'])
         self.assertIn(recipe2, response_both.context['recipes'])
+        '''
+            response.context[recipes] recupera a query set buscada pelo título na função da view
+        '''
+
+    def test_recipe_home_is_paginated(self):
+        for i in range(8):
+            kwargs = {'slug': f'r{i}', 'author_data': {'username': f'u{i}'}}
+            self.make_recipe(**kwargs)
+
+        with patch('recipes.views.PER_PAGE', new=3):
+            response = self.client.get(reverse('recipes:home'))
+            recipes = response.context['recipes']
+            paginator = recipes.paginator
+
+            self.assertEqual(paginator.num_pages, 3)
+            self.assertEqual(len(paginator.get_page(1)), 3)
+            self.assertEqual(len(paginator.get_page(2)), 3)
+            self.assertEqual(len(paginator.get_page(3)), 2)
