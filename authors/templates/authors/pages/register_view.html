@@ -4,8 +4,11 @@
 
 {% block content %}
  <div class="main-content center container">
-    <h1>Register {{request.session.number}}</h1>
+    <h1>Register</h1>
  </div>
+
+ {% include 'recipes/partials/message.html' %}
+
  <div class="main-content container">
     <form action="{% url 'authors:create' %}" method="POST">
         <div class="form-content form-conten-grid">
@@ -24,6 +27,17 @@
                 </div>
             {% endfor %}
         </div>
+
+        {% if form.errors %}
+        <div class="form-content form-content-grid">
+            <div class="form-group">
+              <div class="message message-error">
+                There are error in the form, please fix and send again
+              </div>
+            </div>
+        </div>
+        {% endif %}
+
         <div class="form-content form-content-grid">
             <div class="form-group">
               <button type="submit">Send</button>
