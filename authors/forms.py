@@ -47,7 +47,8 @@ class RegisterForm(forms.ModelForm):
         required=True,
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Repeat your password',
-        })
+        }),
+        label='Password2'
     )
 
     '''
@@ -99,7 +100,7 @@ class RegisterForm(forms.ModelForm):
         help_texts = {
             'email': 'The e-mail must be valid',
         }
-        
+
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'placeholder': 'Type your first name',
@@ -129,7 +130,7 @@ class RegisterForm(forms.ModelForm):
             )
 
         return data
-    
+
     def clean(self):
         '''
         Método para pegar todos os campos da classe mãe
@@ -140,16 +141,15 @@ class RegisterForm(forms.ModelForm):
 
         if password1 != password2:
             error = ValidationError(
-                    'Senhas não correspondem',
-                    code='invalid',   
-                )
+                'Senhas não correspondem',
+                code='invalid',
+            )
             raise ValidationError({
                 'password': error,
-                #Posso mandar um dicionário com erros tbm
+                # Posso mandar um dicionário com erros tbm
                 'password2': [
                     error,
                     'Outro error'
                 ],
-                #'password2': 'Não corresponde ao primeiro password'
-                })
-        
+                # 'password2': 'Não corresponde ao primeiro password'
+            })

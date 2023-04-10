@@ -27,6 +27,22 @@ class AuthorRegisterFormUnitTest(TestCase):
         )),
     ])
     def test_help_text_is_correct(self, field, needed):
+        '''
+        needed guarda os valores dos campos definidos em parameterized
+        current captura os help text dos campos do form real
+        '''
         form = RegisterForm()
         current = form[field].field.help_text
+        self.assertEqual(current, needed)
+    @parameterized.expand([
+        ('first_name', 'First name'),
+        ('last_name', 'Last name'),
+        ('username', 'Username'),
+        ('email', 'Email'),
+        ('password', 'Password'),
+        ('password2', 'Password2'),
+    ])
+    def test_fields_label(self, field, needed):
+        form = RegisterForm()
+        current = form[field].label
         self.assertEqual(current, needed)

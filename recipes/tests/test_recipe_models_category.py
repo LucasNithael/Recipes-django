@@ -15,8 +15,24 @@ class RecipeCategoryModelTest(RecipeTestBase):
             str(self.category),
             self.category.name
         )
+        '''
+            Aqui testa se o método __str__ do model Category é igual
+            ao campo name
+        '''
 
     def test_recipe_category_model_name_max_length_is_65_chars(self):
         self.category.name = 'A' * 66
         with self.assertRaises(ValidationError):
             self.category.full_clean()
+        '''
+            - testa se o campo name de Category levanta erro se
+            ultrapassar os 65 caracteres
+
+            - save() ele salva os dados com mais caracteres que
+            o determinado pelo campo sem levantar error, mas o
+            método full_clean() ele salva os dados e levanta error
+            se a quantidade de caracteres forem maior que determinada
+        
+            - self.assertRaises(ValidationError) afirma que o código
+            abaixo levanta um error validation error
+        '''
