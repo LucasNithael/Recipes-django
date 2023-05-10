@@ -28,10 +28,13 @@ class RecipeCategoryModelTest(RecipeTestBase):
             - testa se o campo name de Category levanta erro se
             ultrapassar os 65 caracteres
 
-            - save() ele salva os dados com mais caracteres que
-            o determinado pelo campo sem levantar error, mas o
-            método full_clean() ele salva os dados e levanta error
-            se a quantidade de caracteres forem maior que determinada
+            - save() salva os dados sem validação, dessa forma dados
+            com mais caracteres do que o número definido no campo do
+            model será salvo normal, nesse caso, ele salva até aonde
+            dá os caracteres.
+
+            - full_clean() ele valida os dados a serem salvos e caso
+            tenha algum erro ele levanta a excetion ValidationError
         
             - self.assertRaises(ValidationError) afirma que o código
             abaixo levanta um error validation error

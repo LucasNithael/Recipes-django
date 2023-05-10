@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 
-def add_placeholder(field, placeholder_val):
+'''def add_placeholder(field, placeholder_val):
     add_attr(field, 'placeholder', placeholder_val)
 
 
 def add_attr(field, attr_name, attr_new_val):
     existing = field.widget.attrs.get(attr_name, '')
     field.widget.attrs[attr_name] = f'{existing} {attr_new_val}'.strip()
-
+'''
 
 def strong_password(password):
     regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
@@ -73,6 +73,54 @@ class RegisterForm(forms.ModelForm):
 
     )
 
+    first_name = forms.CharField(
+        error_messages={
+            'required': 'Write your first name',
+        },
+        label='First name',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Type your first name',
+        })
+    )
+
+    last_name = forms.CharField(
+        error_messages={
+            'required': 'Write your last name',
+        },
+        label='Last name',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Type your last name'
+        })
+    )
+
+    email = forms.CharField(
+        error_messages={
+            'required': 'E-mail is required',
+        },
+        label='Email',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Type your email'
+        }),
+        help_text='The e-mail must be valid',
+    )
+
+    username = forms.CharField(
+        error_messages={
+            'required': 'This field must not be empty',
+            'min_length': 'Username must have at least 4 characters',
+            'max_length': 'Username must have less than 150 characters',
+        },
+        label='Username',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Your username',
+        }),
+        help_text=(
+            'Username must have letters, numbers or one of those @.+-_. '
+            'The length should be between 4 and 150 characters.'
+        ),
+        min_length=4, max_length=150,
+    )
+
     class Meta:
         model = User
         fields = [
@@ -83,44 +131,23 @@ class RegisterForm(forms.ModelForm):
             'password',
         ]
 
-        labels = {
-            'first_name': 'First name',
-            'last_name': 'Last name',
+    '''    labels = {
             'username': 'Username',
-            'email': 'Email',
-            'password': 'Password',
         }
 
         error_messages = {
             'username': {
-                'required': 'This field must be not empty',
-            }
-        }
-
-        help_texts = {
-            'email': 'The e-mail must be valid',
+                'required': 'This field must not be empty',
+            },
         }
 
         widgets = {
-            'first_name': forms.TextInput(attrs={
-                'placeholder': 'Type your first name',
-            }),
-            'last_name': forms.TextInput(attrs={
-                'placeholder': 'Type your last name',
-            }),
             'username': forms.TextInput(attrs={
                 'placeholder': 'Your username',
             }),
-            'email': forms.EmailInput(attrs={
-                'placeholder': 'Type your email'
-            }),
-            'password': forms.PasswordInput(attrs={
-                'placeholder': 'Type your password here',
-            }),
+        }'''
 
-        }
-
-    def clean_password(self):
+    '''def clean_password(self):
         data = self.cleaned_data.get('password')
 
         if 'Atenção' in data:
@@ -130,7 +157,8 @@ class RegisterForm(forms.ModelForm):
             )
 
         return data
-
+    '''
+    
     def clean(self):
         '''
         Método para pegar todos os campos da classe mãe

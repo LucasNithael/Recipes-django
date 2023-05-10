@@ -21,8 +21,10 @@
                     {% if field.help_text %}
                         <div class="help-text">{{field.help_text}}</div>
                     {% endif %}
-
+                    
+                    <!--Esses erros irão aparecer apenas se digitado um campo inválido ou dado espaço em um campo e tentar enviar sem digitar nada-->
                     {{field.errors}}
+                    
 
                 </div>
             {% endfor %}

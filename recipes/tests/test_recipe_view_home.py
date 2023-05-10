@@ -13,7 +13,7 @@ class RecipeHomeViewsTest(RecipeTestBase):
             - resolve nos dar os dados que a url tem, dentre
             esses dados a função que a aquela url leva
 
-            - reserve nos retorna o campinho completo da url que
+            - reserve nos retorna o caminho completo da url que
             pedimos para gerar, no caso desse teste é retornado
             apenas '/'
 

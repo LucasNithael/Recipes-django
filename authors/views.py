@@ -27,6 +27,6 @@ def register_create(request):
         '''
         limpa os dados da sessão caso o formulário seja válidado
         '''
-        del(request.session['request_form_data'])
+        del (request.session['request_form_data'])
 
     return redirect('authors:register')
