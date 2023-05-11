@@ -123,3 +123,22 @@ class AuthorRegisterFormIntegrationTest(TestCase):
             'at least 8 characters.'
         )
         self.assertIn(msg, response.content.decode('utf-8'))
+
+    def test_if_email_is_being_used_another_user(self):
+        user1 = {
+            'username': 'zoro',
+            'first_name': 'Roronoa',
+            'last_name': 'Sola',
+            'email': 'zoro@gmail.com',
+            'password': '#Naruto123',
+            'password2': '#Naruto123'
+        }
+
+        user2 = user1
+        user2['username'] = 'zorinho'
+
+        url = reverse('authors:create')
+        self.client.post(url, user1)
+        response = self.client.post(url, user2, follow=True)
+        self.assertIn('Email já em uso', response.context['form'].errors.get('email'))
+        self.assertIn('Email já em uso', response.content.decode('utf-8'))

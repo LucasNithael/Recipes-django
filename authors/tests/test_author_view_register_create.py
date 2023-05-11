@@ -5,10 +5,10 @@ from django.urls import reverse
 class AuthorRegiterCreateView(TestCase):
     def test_if_user_is_valid(self):
         user = {
-            'username': 'lucas22',
-            'first_name': 'Lucas',
-            'last_name': 'Nithael',
-            'email': 'lucasnithael@gmail.com',
+            'username': 'zoro',
+            'first_name': 'Roronoa',
+            'last_name': 'Sola',
+            'email': 'zoro@gmail.com',
             'password': '#Naruto123',
             'password2': '#Naruto123'
         }
@@ -25,5 +25,4 @@ class AuthorRegiterCreateView(TestCase):
     def test_if_register_create_is_not_post(self):
         url = reverse('authors:create')
         response = self.client.get(url)
-        
         self.assertEqual(response.status_code, 404)

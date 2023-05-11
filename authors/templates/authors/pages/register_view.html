@@ -7,44 +7,8 @@
     <h1>Register</h1>
  </div>
 
- {% include 'recipes/partials/message.html' %}
+{% include 'global/partials/message.html' %}
 
- <div class="main-content container">
-    <form action="{% url 'authors:create' %}" method="POST">
-        <div class="form-content form-conten-grid">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group">
-                    <label for="{{field.id_for_label}}">{{field.label}}</label>
-                    {{field}}
-                    
-                    {% if field.help_text %}
-                        <div class="help-text">{{field.help_text}}</div>
-                    {% endif %}
-                    
-                    <!--Esses erros irão aparecer apenas se digitado um campo inválido ou dado espaço em um campo e tentar enviar sem digitar nada-->
-                    {{field.errors}}
-                    
+   {% include 'global/partials/forms.html' %}
 
-                </div>
-            {% endfor %}
-        </div>
-
-        {% if form.errors %}
-        <div class="form-content form-content-grid">
-            <div class="form-group">
-              <div class="message message-error">
-                There are error in the form, please fix and send again
-              </div>
-            </div>
-        </div>
-        {% endif %}
-
-        <div class="form-content form-content-grid">
-            <div class="form-group">
-              <button type="submit">Send</button>
-            </div>
-        </div>
-    </form>
- </div>
 {% endblock content %}

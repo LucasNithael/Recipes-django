@@ -4,15 +4,6 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 
-'''def add_placeholder(field, placeholder_val):
-    add_attr(field, 'placeholder', placeholder_val)
-
-
-def add_attr(field, attr_name, attr_new_val):
-    existing = field.widget.attrs.get(attr_name, '')
-    field.widget.attrs[attr_name] = f'{existing} {attr_new_val}'.strip()
-'''
-
 def strong_password(password):
     regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
 
@@ -27,22 +18,6 @@ def strong_password(password):
 
 
 class RegisterForm(forms.ModelForm):
-    '''
-    Essa função inicializadora permite sobreescrever
-    auterações da classe Meta sem desabilitar 
-    configurações já feitas
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        add_placeholder(self.fields['username'], 'Your username')
-        add_placeholder(self.fields['email'], 'Your e-mail')
-        add_placeholder(self.fields['first_name'], 'Ex.:Lucas')
-        add_placeholder(self.fields['last_name'], 'Ex.: Nithael')
-        add_attr(self.fields['username'], 'css', 'a-css-class')
-    '''
-    '''
-    Podemos criar um novo campo dessa forma abaixo
-    '''
     password2 = forms.CharField(
         required=True,
         widget=forms.PasswordInput(attrs={
@@ -131,38 +106,10 @@ class RegisterForm(forms.ModelForm):
             'password',
         ]
 
-    '''    labels = {
-            'username': 'Username',
-        }
-
-        error_messages = {
-            'username': {
-                'required': 'This field must not be empty',
-            },
-        }
-
-        widgets = {
-            'username': forms.TextInput(attrs={
-                'placeholder': 'Your username',
-            }),
-        }'''
-
-    '''def clean_password(self):
-        data = self.cleaned_data.get('password')
-
-        if 'Atenção' in data:
-            raise ValidationError(
-                'Não digite "Atenção"',
-                code='invalid'
-            )
-
-        return data
-    '''
-    
     def clean(self):
         '''
-        Método para pegar todos os campos da classe mãe
-        cleaned_data = super().clean()
+        Método que permite validações específicas com mais de um campo, em
+        geral, campos que depende de outros para serem validados
         '''
         password1 = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
@@ -181,3 +128,22 @@ class RegisterForm(forms.ModelForm):
                 ],
                 # 'password2': 'Não corresponde ao primeiro password'
             })
+
+    def clean_username(self):
+        '''
+        Método usado para validação específica do campo username
+        '''
+        username = self.cleaned_data['username']
+        try:
+            User.objects.get(username=username)
+            raise forms.ValidationError('Username já existe')
+        except User.DoesNotExist:
+            return username
+        
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '')
+        exists = User.objects.filter(email=email).exists()
+        if exists:
+            raise ValidationError('Email já em uso')
+        return email
+
