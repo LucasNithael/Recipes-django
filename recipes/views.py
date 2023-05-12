@@ -70,3 +70,4 @@ def search(request):
         'pagination_range': pagination_range,
         'additional_url_query': f'&search={search_term}',
     })
+
