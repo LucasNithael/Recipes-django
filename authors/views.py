@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import RegisterForm, LoginForm
 from django.http import Http404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def register_view(request):
@@ -64,4 +65,14 @@ def login_create(request):
     else:
         messages.error(request, 'Invalid username or password')
 
+    return redirect('authors:login')
+
+
+# apenas usuários logados podem acessa essa view                             
+@login_required(login_url='authors:login', redirect_field_name='next')
+def logout_view(request):
+    if not request.POST:
+        return redirect('authors:login')
+
+    logout(request)
     return redirect('authors:login')
