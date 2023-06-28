@@ -65,7 +65,7 @@ def login_create(request):
     else:
         messages.error(request, 'Invalid username or password')
 
-    return redirect('authors:login')
+    return redirect('authors:dashboard')
 
 
 # apenas usuários logados podem acessa essa view                             
@@ -76,3 +76,7 @@ def logout_view(request):
 
     logout(request)
     return redirect('authors:login')
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard(request):
+    return render(request, 'authors/pages/dashboard.html')
