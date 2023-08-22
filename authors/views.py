@@ -68,7 +68,7 @@ def login_create(request):
     return redirect('authors:dashboard')
 
 
-# apenas usuários logados podem acessa essa view                             
+# apenas usuários logados podem acessa essa view                            
 @login_required(login_url='authors:login', redirect_field_name='next')
 def logout_view(request):
     if not request.POST:
@@ -76,6 +76,7 @@ def logout_view(request):
 
     logout(request)
     return redirect('authors:login')
+
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard(request):
