@@ -329,7 +329,9 @@ h6 {
   color: var(--color-error-dark);
 }
 
-.form-content input {
+.form-content input,
+.form-content textarea,
+.form-content select {
   width: 100%;
   padding: 1rem;
   border-radius: 0.4rem;
@@ -347,22 +349,24 @@ h6 {
   border: none;
   background: var(--color-primary-dark);
   color: var(--color-white);
-  cursor: pointer;
 }
 
-.inline-form{
+.inline-form {
   display: inline;
 }
 
-.plaintext-button{
-  background: none;
+.span-2 {
+  grid-column: span 2;
+}
+
+.plaintext-button {
   display: inline;
   border: none;
+  background: none;
   cursor: pointer;
   color: var(--color-primary);
   font-size: 1.6rem;
 }
-
 
 /* Messages */
 .messages-container {
@@ -415,9 +419,8 @@ h6 {
   color: var(--color-debug-dark);
 }
 
-
 /* Authors */
-.login-message{
+.login-message {
   margin: 1rem 0;
 }
 
@@ -425,7 +428,7 @@ h6 {
   max-width: 64rem;
   text-align: left;
   padding: var(--spacing-gutter-medium);
-  margin: auto;
+  margin: 0 auto;
 }
 
 .authors-dashboard-container h3,
@@ -435,11 +438,14 @@ h6 {
   margin: 1rem 0;
 }
 
-
 /* Generics */
 
 .center {
   text-align: center;
+}
+
+.left {
+  text-align: left;
 }
 
 .m-x {
