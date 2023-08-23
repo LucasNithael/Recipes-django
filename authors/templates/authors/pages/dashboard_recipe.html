@@ -1,0 +1,18 @@
+{% extends 'global/base.html' %}
+
+{% block title %}DashBoard Recipe  {% endblock title %}
+
+{% block content %}
+ <div class="main-content center container">
+    <h1>DashBoard Recipe </h1>
+    {% include 'global/partials/message.html' %}
+    {% include 'authors/partials/login_message.html' %}
+
+    <div class="authors-dashboard-container">
+       {% include 'global/partials/forms.html' %}
+    </div>
+  </div>
+
+
+
+{% endblock content %}
