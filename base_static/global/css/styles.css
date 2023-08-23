@@ -141,6 +141,15 @@ h6 {
   padding-top: 0;
 }
 
+img{
+  width: 100%;
+}
+
+a{
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
 .main-content-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));

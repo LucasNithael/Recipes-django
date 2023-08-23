@@ -2,6 +2,10 @@
       <div class="login-message">
         
         You are logged with <strong>{{request.user.username}}</strong> - 
+        <a href="{% url 'authors:dashboard' %}">
+          See your recipes 
+        </a>
+        or
         <form class="inline-form" action="{%url 'authors:logout'%}" method='POST'>
           {% csrf_token %}
           <button class="plaintext-button">logout</button>
