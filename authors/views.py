@@ -124,4 +124,22 @@ def dashboard_recipe_edit(request, id):
     })
 
 
+def recipe_delete(request, id):
+    if request.method != 'POST':
+        raise Http404
+    
+    recipe = Recipe.objects.filter(
+        pk=id,
+        author=request.user,
+        is_published=False,
+        ).first()
+
+    if recipe:
+        recipe.delete()
+        messages.success(request, 'Receita deletada com sucesso')
+    else:
+        messages.error(request, 'Erro ao deletar receita')
+    
+    return redirect('authors:dashboard')
+
 
