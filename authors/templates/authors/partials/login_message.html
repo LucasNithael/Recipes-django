@@ -5,7 +5,7 @@
         <a href="{% url 'authors:dashboard' %}">
           See your recipes,
         </a>
-        <a href="{% url 'recipes:recipe_save' %}">create a new recipe</a>
+        <a href="{% url 'authors:recipe_save' %}">create a new recipe</a>
         or
         <form class="inline-form" action="{%url 'authors:logout'%}" method='POST'>
           {% csrf_token %}

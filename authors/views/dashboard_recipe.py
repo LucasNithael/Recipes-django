@@ -11,7 +11,7 @@ class DashboardRecipe(View):
     def get_recipe(self, id):
         recipe = None
 
-        if id:
+        if id is not None:
             recipe = Recipe.objects.filter(
                 is_published=False,
                 author=self.request.user,
@@ -32,12 +32,12 @@ class DashboardRecipe(View):
             }
         )
 
-    def get(self, request, id):
+    def get(self, request, id=None):
         recipe = self.get_recipe(id)
         form = AuthorRecipeForm(instance=recipe)
         return self.render_recipe(form)
 
-    def post(self, request, id):
+    def post(self, request, id=None):
         recipe = self.get_recipe(id)
         form = AuthorRecipeForm(
             data=request.POST or None,
@@ -57,7 +57,9 @@ class DashboardRecipe(View):
 
             messages.success(request, 'Sua receita foi salva com sucesso!')
             return redirect(
-                reverse('authors:dashboard_recipe_edit', args=(id,))
+                reverse('authors:dashboard_recipe_edit', args=(
+                    recipe.id,
+                ))
             )
 
         return self.render_recipe(form)
