@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegisterForm, LoginForm, AuthorRecipeForm
+from authors.forms import RegisterForm, LoginForm, AuthorRecipeForm
 from django.contrib.auth.decorators import login_required
 from recipes.models import Recipe
 
