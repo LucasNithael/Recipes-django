@@ -24,7 +24,7 @@ urlpatterns = [
         ),
     path(
         'dashboard/recipe/<int:id>/delete/',
-        views.recipe_delete,
+        views.DashboardRecipeDelete.as_view(),
         name="dashboard_recipe_delete"
         )
 
