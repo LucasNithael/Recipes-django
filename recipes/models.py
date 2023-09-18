@@ -31,7 +31,7 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f' {self.id} - {self.title}'
+        return self.title
     
     def get_absolute_url(self):
         return reverse("recipes:recipe", args=(self.id,))

@@ -9,7 +9,7 @@ class RecipeSearchViewsTest(RecipeTestBase):
         view = resolve(
             reverse('recipes:search')
         )
-        self.assertIs(view.func, views.search)
+        self.assertIs(view.func.view_class, views.RecipeListViewSearch)
         '''
             - detalhes de como esse teste funciona nos teste da
             view da home
