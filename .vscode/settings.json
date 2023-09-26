@@ -53,7 +53,7 @@
       "**/base_templates/**/*.html": "django-html",
       "**/requirements{/**,*}.{txt,in}": "pip-requirements"
     },
-    "emmet.includeLanguages": {
+    "emmet.includeLanguages": { 
       "django-html": "html", // batisteo.vscode-django
       "javascript": "javascriptreact",
       "typescript": "typescriptreact"
